@@ -1,0 +1,13 @@
+D:\ооп\Lab2OOP\GzPlugin\GzPlugin\bin\Debug\GzPlugin.dll
+D:\ооп\Lab2OOP\GzPlugin\GzPlugin\bin\Debug\GzPlugin.pdb
+D:\ооп\Lab2OOP\GzPlugin\GzPlugin\bin\Debug\Lab2OOP.exe
+D:\ооп\Lab2OOP\GzPlugin\GzPlugin\bin\Debug\Lab2OOP.pdb
+D:\ооп\Lab2OOP\GzPlugin\GzPlugin\bin\Debug\Lab2OOP.exe.config
+D:\ооп\Lab2OOP\GzPlugin\GzPlugin\obj\Debug\GzPlugin.csprojAssemblyReference.cache
+D:\ооп\Lab2OOP\GzPlugin\GzPlugin\obj\Debug\GzPlugin.csproj.CoreCompileInputs.cache
+D:\ооп\Lab2OOP\GzPlugin\GzPlugin\obj\Debug\GzPlugin.csproj.CopyComplete
+D:\ооп\Lab2OOP\GzPlugin\GzPlugin\obj\Debug\GzPlugin.dll
+D:\ооп\Lab2OOP\GzPlugin\GzPlugin\obj\Debug\GzPlugin.pdb
+D:\ооп\Lab2OOP\GzPlugin\GzPlugin\bin\Debug\Newtonsoft.Json.dll
+D:\ооп\Lab2OOP\GzPlugin\GzPlugin\bin\Debug\Newtonsoft.Json.pdb
+D:\ооп\Lab2OOP\GzPlugin\GzPlugin\bin\Debug\Newtonsoft.Json.xml

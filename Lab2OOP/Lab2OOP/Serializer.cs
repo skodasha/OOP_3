@@ -11,69 +11,66 @@ namespace Lab2OOP
 {
     public interface Serializer
     {
-        void Serialize(List<Object> item);
-        List<Object> Deserialize(List<Object> item);
-        string FilePath { get; set; }
-
+        void Serialize(List<Object> item, Stream stream);
+        List<Object> Deserialize(List<Object> item, Stream stream);
     }
 
     public class BinarySerializer : Serializer
     {
-        public string FilePath { get; set; }
-
-        public void Serialize(List<Object> itemList)
+        public override string ToString()
         {
-            BinaryFormatter formatter = new BinaryFormatter();
-            using (FileStream fs = new FileStream(FilePath + ".dat", FileMode.OpenOrCreate))
-            {
-                formatter.Serialize(fs, itemList);
-            }
+            return $".dat";
         }
 
-        public List<Object> Deserialize(List<Object> itemList)
+        public void Serialize(List<Object> itemList, Stream stream)
         {
-            if (FilePath.Substring(FilePath.Length - 3) == "dat")
+            BinaryFormatter formatter = new BinaryFormatter();
+            formatter.Serialize(stream, itemList);
+        }
+
+        public List<Object> Deserialize(List<Object> itemList, Stream stream)
+        {
+            try
             {
                 BinaryFormatter formatter = new BinaryFormatter();
                 List<Object> buf = new List<object>();
-                using (FileStream fs = new FileStream(FilePath, FileMode.OpenOrCreate))
-                {
-                    buf = (List<Object>)formatter.Deserialize(fs);
-                }
+                buf = (List<Object>)formatter.Deserialize(stream);
                 return buf;
             }
-            return null;
+            catch
+            {
+                return null;
+            }
+            
         }
     }
 
     public class JSONSerializer : Serializer
     {
-        public string FilePath { get; set; }
+        public override string ToString()
+        {
+            return $".json";
+        }
 
-        public void Serialize(List<Object> itemList)
+        public void Serialize(List<Object> itemList, Stream stream)
         {
             string jsonObject = JsonConvert.SerializeObject(itemList, Formatting.Indented, new JsonSerializerSettings
             {
                 TypeNameHandling = TypeNameHandling.All,
                 PreserveReferencesHandling = PreserveReferencesHandling.Objects
             });
-            using (StreamWriter fs = new StreamWriter(FilePath + ".json"))
-            {
-                fs.Write(jsonObject);
-            }
+            StreamWriter streamWriter = new StreamWriter(stream);
+            streamWriter.WriteLine(jsonObject);
+            streamWriter.Flush();
         }
 
-        public List<Object> Deserialize(List<Object> itemList)
+        public List<Object> Deserialize(List<Object> itemList, Stream stream)
         {
-            if (FilePath.Substring(FilePath.Length - 4) == "json")
+            try
             {
-                string jsonObject = String.Empty;
-
-                using (StreamReader fs = new StreamReader(FilePath))
-                {
-                    jsonObject = fs.ReadToEnd();
-                }
-
+                StreamReader streamReader = new StreamReader(stream);
+                string jsonObject = streamReader.ReadToEnd();
+                streamReader.Close();
                 object deserializedObject = JsonConvert.DeserializeObject<Object>(jsonObject, new JsonSerializerSettings
                 {
                     PreserveReferencesHandling = PreserveReferencesHandling.Objects,
@@ -82,40 +79,46 @@ namespace Lab2OOP
 
                 return (List<Object>)deserializedObject;
             }
-            return null;
-           
+            catch
+            {
+                return null;
+            }
         }
     }
 
     public class TextSerializer: Serializer
     {
-        public string FilePath { get; set; }
+        public override string ToString()
+        {
+            return $".txt";
+        }
 
-        public void Serialize(List<Object> itemList)
+        public void Serialize(List<Object> itemList, Stream stream)
         {
             string info = String.Empty;
             TextFormatter textFormatter = new TextFormatter();
             info = textFormatter.GetInfo(itemList);
-            using (StreamWriter streamWriter = new StreamWriter(FilePath + ".txt"))
-            {
-                streamWriter.Write(info);
-            }
+            StreamWriter streamWriter = new StreamWriter(stream);
+            streamWriter.WriteLine(info);
+            streamWriter.Flush();
         }
 
-        public List<Object> Deserialize(List<Object> itemList)
+        public List<Object> Deserialize(List<Object> itemList, Stream stream)
         {
-            if (FilePath.Substring(FilePath.Length - 3) == "txt")
+            try
             {
-                string info = String.Empty;
-                using (StreamReader streamReader = new StreamReader(FilePath))
-                {
-                    info = streamReader.ReadToEnd();
-                }
+                StreamReader streamReader = new StreamReader(stream);
+                string info = streamReader.ReadToEnd();
+                streamReader.Close();
                 TextParser textParser = new TextParser();
                 object deserializedObj = textParser.GetObjects(info);
                 return (List<Object>)deserializedObj;
             }
-            return null;    
+            catch
+            {
+                return null;
+            }
+                
         }
 
     }

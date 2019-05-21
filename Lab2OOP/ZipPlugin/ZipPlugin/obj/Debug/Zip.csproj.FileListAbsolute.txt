@@ -1,0 +1,5 @@
+D:\ооп\ZipPlugin\ZipPlugin\bin\Debug\ZipPlugin.dll
+D:\ооп\ZipPlugin\ZipPlugin\bin\Debug\ZipPlugin.pdb
+D:\ооп\ZipPlugin\ZipPlugin\obj\Debug\Zip.csproj.CoreCompileInputs.cache
+D:\ооп\ZipPlugin\ZipPlugin\obj\Debug\ZipPlugin.dll
+D:\ооп\ZipPlugin\ZipPlugin\obj\Debug\ZipPlugin.pdb

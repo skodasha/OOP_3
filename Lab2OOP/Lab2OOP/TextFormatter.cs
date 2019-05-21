@@ -13,24 +13,18 @@ namespace Lab2OOP
         private int idCount = 0;
         private List<Element> elementsList = new List<Element>();
 
-        public char openArray = '[';
-        public char closeArray = ']';
-        public char openObject = '{';
-        public char closeObject = '}';
-        public char delimiterObject = ',';
-        public char delimiterList = ';';
-        public string arrayAttribute = "$values";
-        public string typeAttribute = "$type";
         public string idAttribute = "$id";
+        public string typeAttribute = "$type";
+        public string arrayAttribute = "$values";
         public string referenceAttribute = "$ref";
 
         public string ReferenceFormatter(int idObj)
         {
             StringBuilder textSerializer = new StringBuilder();
 
-            textSerializer.AppendLine("" + openObject);
-            textSerializer.AppendLine("    " + referenceAttribute + ':' + "  " + idObj + delimiterObject);
-            textSerializer.Append("   " + closeObject);
+            textSerializer.AppendLine("" + '{');
+            textSerializer.AppendLine("    " + referenceAttribute + ':' + "  " + idObj + ',');
+            textSerializer.Append("   " + '}');
 
             return textSerializer.ToString();
         }
@@ -60,9 +54,9 @@ namespace Lab2OOP
                 elementsList.Add(new Element(obj, idCount));
 
                 StringBuilder objBuilder = new StringBuilder();
-                objBuilder.AppendLine("" + openObject);
-                objBuilder.AppendLine("  " + '"' + idAttribute + '"' + ':' + "  " + (idCount++).ToString() + delimiterObject);
-                objBuilder.AppendLine("  " + '"' + typeAttribute + '"' + ':' + "  " + obj.GetType().ToString() + delimiterObject);
+                objBuilder.AppendLine("" + '{');
+                objBuilder.AppendLine("  " + '"' + idAttribute + '"' + ':' + "  " + (idCount++).ToString() + ',');
+                objBuilder.AppendLine("  " + '"' + typeAttribute + '"' + ':' + "  " + obj.GetType().ToString() + ',');
                 foreach (var property in obj.GetType().GetProperties())
                 {
                     objBuilder.AppendLine("  " + '"' + property.Name + '"' + ':' + "  ");
@@ -74,15 +68,15 @@ namespace Lab2OOP
                     {
                         if (property.PropertyType.IsEnum)
                         {
-                            objBuilder.Append("   " + ((int)property.GetValue(obj)).ToString() + delimiterObject);
+                            objBuilder.Append("   " + ((int)property.GetValue(obj)).ToString() + ',');
                         }
                         else
-                            objBuilder.Append("   " + property.GetValue(obj).ToString() + delimiterObject);
+                            objBuilder.Append("   " + property.GetValue(obj).ToString() + ',');
 
                     }
                     objBuilder.AppendLine();
                 }
-                objBuilder.AppendLine("" + closeObject);
+                objBuilder.AppendLine("" + '}');
                 return objBuilder.ToString();
             }
 
@@ -90,15 +84,15 @@ namespace Lab2OOP
         public string GetInfo(List<object> objList)
         {
             StringBuilder textSerializer = new StringBuilder();
-            textSerializer.AppendLine("" + openObject);
-            textSerializer.AppendLine("  " + '"' + typeAttribute + '"' + ':' + "  " + objList.GetType().ToString() + delimiterList);
-            textSerializer.AppendLine("  " + '"' + arrayAttribute + '"' + ":" + "  " + openArray);
+            textSerializer.AppendLine("" + '{');
+            textSerializer.AppendLine("  " + '"' + typeAttribute + '"' + ':' + "  " + objList.GetType().ToString() + ';');
+            textSerializer.AppendLine("  " + '"' + arrayAttribute + '"' + ":" + "  " + '[');
             foreach (object obj in objList)
             {
                 textSerializer.AppendLine(ObjFormatter(obj));                
             }
-            textSerializer.AppendLine("" + closeArray + delimiterList);
-            textSerializer.AppendLine("" + closeObject);
+            textSerializer.AppendLine("" + ']' + ';');
+            textSerializer.AppendLine("" + '}');
             return textSerializer.ToString();
         }
     }

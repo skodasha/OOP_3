@@ -57,6 +57,7 @@
     <Compile Include="Classes.cs" />
     <Compile Include="Creates.cs" />
     <Compile Include="DeviceAtribute.cs" />
+    <Compile Include="IPlugin.cs" />
     <Compile Include="Serializer.cs" />
     <Compile Include="CreateFormElem.cs">
       <SubType>Form</SubType>
@@ -97,5 +98,6 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
